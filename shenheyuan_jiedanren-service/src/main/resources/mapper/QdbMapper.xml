@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.glmc.mapper.QdbMapper" >
+  <resultMap id="BaseResultMap" type="cn.edu.glmc.bean.Qdb" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="qdsj" property="qdsj" jdbcType="TIMESTAMP" />
+    <result column="shyid" property="shyid" jdbcType="VARCHAR" />
+    <result column="xq" property="xq" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, qdsj, shyid, xq,state
+  </sql>
+  <select id="selqdb" resultMap="BaseResultMap" parameterType="cn.edu.glmc.bean.Qdb">
+  	select
+    *
+    from qdb
+    where shyid = #{shyid,jdbcType=VARCHAR}     ORDER BY qdsj desc
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from qdb
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from qdb
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="qd" parameterType="cn.edu.glmc.bean.Qdb" >
+    insert into qdb (shyid,xq,state)
+    values ( #{shyid,jdbcType=VARCHAR},
+      #{xq,jdbcType=VARCHAR},
+      #{state,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insert" parameterType="cn.edu.glmc.bean.Qdb" >
+    insert into qdb (id, qdsj, shyid,
+      xq)
+    values (#{id,jdbcType=INTEGER}, #{qdsj,jdbcType=TIMESTAMP}, #{shyid,jdbcType=VARCHAR},
+      #{xq,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.edu.glmc.bean.Qdb" >
+    insert into qdb
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="qdsj != null" >
+        qdsj,
+      </if>
+      <if test="shyid != null" >
+        shyid,
+      </if>
+      <if test="xq != null" >
+        xq,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="qdsj != null" >
+        #{qdsj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shyid != null" >
+        #{shyid,jdbcType=VARCHAR},
+      </if>
+      <if test="xq != null" >
+        #{xq,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.edu.glmc.bean.Qdb" >
+    update qdb
+    <set >
+      <if test="qdsj != null" >
+        qdsj = #{qdsj,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shyid != null" >
+        shyid = #{shyid,jdbcType=VARCHAR},
+      </if>
+      <if test="xq != null" >
+        xq = #{xq,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.edu.glmc.bean.Qdb" >
+    update qdb
+    set qdsj = #{qdsj,jdbcType=TIMESTAMP},
+      shyid = #{shyid,jdbcType=VARCHAR},
+      xq = #{xq,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectOptimalXq" parameterType="java.lang.String" resultType="java.lang.String">
+    select xq
+    from qdb
+    where shyid = #{shyid,jdbcType=VARCHAR}
+    and state = 1
+    order by qdsj desc
+    limit 1
+  </select>
+
+  <select id="selectOptimalXqForShy" parameterType="java.lang.String" resultType="java.lang.String">
+    select xq
+    from qdb
+    where shyid = #{shyid,jdbcType=VARCHAR}
+    order by qdsj desc
+    limit 1
+  </select>
+</mapper>

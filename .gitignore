@@ -1,0 +1,7 @@
+# 项目排除路径
+/admin-service/target/
+/baoxiudan-service/target/
+/baoxiuquyu-service/target/
+/ewm-service/target/
+/haocai-service/target/
+/shenheyuan_jiedanren-service/target/
