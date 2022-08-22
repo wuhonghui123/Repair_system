@@ -1,29 +1,27 @@
-package cn.edu.glmc.controller;
+package cn.edu.glmc.controller.bxd;
 
-import cn.edu.glmc.bean.Bxd;
+import cn.edu.glmc.feign.bxd.BxdFeignClient;
 import cn.edu.glmc.http.HttpResult;
-import cn.edu.glmc.service.BxdService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 /**
  * @Author: wuhonghui
- * @Date: 2022/08/21/16:13
+ * @Date: 2022/08/22/15:46
  */
 @RestController
 public class BxdController {
     @Autowired
-    private BxdService bxdService;
+    private BxdFeignClient bxdFeignClient;
+
     @GetMapping("/bxd/getbxdlist")
-    List<Bxd> getBxdList(){
-        return bxdService.getBxdList();
+    public HttpResult deleteClassificationList(){
+        return HttpResult.ok(bxdFeignClient.getBxdList());
     }
+
     @GetMapping("/test")
     String test(){
-        return "测试。。。。。";
+        return bxdFeignClient.test();
     }
 }

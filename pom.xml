@@ -15,6 +15,7 @@
         <module>baoxiudan-service</module>
         <module>shenheyuan_jiedanren-service</module>
         <module>admin-service</module>
+        <module>api-service</module>
     </modules>
 
     <properties>
