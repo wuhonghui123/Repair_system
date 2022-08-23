@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.glmc.mapper.DictMapper">
+    <cache/>
+
+    <select id="selectDictItemByCode" resultType="cn.edu.glmc.bean.DictItem">
+        select dictitem.DITEM_CODE as value, dictitem.DITEM_VALUE as label
+        from dict,
+             dictitem
+        where dict.itemCode = dictitem.DICT_CODE
+          and dict.itemCode = (select itemCode from dict where dict.DICT_CODE = #{dictCode})
+    </select>
+    <select id="selAllDict" resultType="java.lang.String">
+        SELECT itemID
+        FROM dict
+    </select>
+    <select id="selDictNameForID" resultType="java.lang.String">
+        SELECT dict_name
+        FROM dict
+        WHERE itemID=#{id}
+    </select>
+</mapper>

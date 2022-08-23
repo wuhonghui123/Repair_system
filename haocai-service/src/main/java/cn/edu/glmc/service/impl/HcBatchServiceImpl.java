@@ -5,6 +5,7 @@ import cn.edu.glmc.service.HcBatchService;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
+import org.springframework.stereotype.Service;
 
 import java.io.InputStream;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
  * @Author: wuhonghui
  * @Date: 2022/08/21/20:26
  */
+@Service
 public class HcBatchServiceImpl implements HcBatchService {
 
     @Override
