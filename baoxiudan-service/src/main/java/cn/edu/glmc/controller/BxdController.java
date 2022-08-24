@@ -34,8 +34,6 @@ public class BxdController {
     }
     @Autowired
     private BxdService bxdService; //报修单
-    @Autowired
-    private EwmService ewmService;
 
     @RequestMapping("/AdminServlet")
     @ResponseBody

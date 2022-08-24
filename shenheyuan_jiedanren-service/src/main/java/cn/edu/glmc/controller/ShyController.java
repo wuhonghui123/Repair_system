@@ -53,6 +53,10 @@ public class ShyController {
             case "selallshy" : return new ResponseData(shymap);
             case "selqdb" :
             case "selbxdbyadminpc" :
+            case "selalljdr" :
+            case "newpeople" :
+            case "uppeople" :
+            case "selOptimaljdrPC" :
             default: return new ResponseData(false);
         }
     }
