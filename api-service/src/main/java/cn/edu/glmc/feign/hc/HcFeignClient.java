@@ -20,39 +20,13 @@ import java.util.*;
  */
 @FeignClient(value = "haocai-service", configuration = OpenFeignConfig.class)
 public interface HcFeignClient {
-    /**
-     * 根据一级类别和二级类别获取耗材表的数据
-     */
+    @RequestMapping("/HcServlet")
     @ResponseBody
-    @RequestMapping("/HcServlet/selHcByLb")
-    ResponseData selHcByLb(@RequestParam String yjlb, @RequestParam String ejlb);
-
-    /**
-     * 插入一条耗材数据
-     */
-    @ResponseBody
-    @RequestMapping("/HcServlet/newhc")
-    ResponseData newhc(@RequestParam String mc, @RequestParam String dw, @RequestParam String jg, @RequestParam String lb, @RequestParam String xh);
-
-    /**
-     * 更新一条耗材数据
-     */
-    @ResponseBody
-    @RequestMapping("/HcServlet/uphc")
-    ResponseData uphc(@RequestParam String id, @RequestParam String mc, @RequestParam String dw, @RequestParam String jg, @RequestParam String lb, @RequestParam String xh);
-
-    /**
-     * 删除一条耗材数据
-     */
-    @RequestMapping("/HcServlet/delhc")
-    ResponseData delhc(String id);
-
-    /**
-     * 查询所有耗材表的数据
-     */
-    @RequestMapping("/HcServlet/selhc")
-    ResponseData selhc();
-
+    ResponseData hcServlet(@RequestParam("op") String op, @RequestParam(value = "mc", required = false) String mc,
+                           @RequestParam(value = "dw", required = false) String dw, @RequestParam(value = "jg", required = false) String jg,
+                           @RequestParam(value = "id", required = false) String id, @RequestParam(value = "lb", required = false) String lb,
+                           @RequestParam(value = "xh", required = false) String xh, @RequestParam(value = "yjlb", required = false) String yjlb,
+                           @RequestParam(value = "ejlb", required = false) String ejlb);
     @RequestMapping(value = "/insertHcBatch", method = RequestMethod.POST)
     public ResponseData insertHcBatch(@RequestParam(value = "hcFile", required = false) MultipartFile hcFile);
 

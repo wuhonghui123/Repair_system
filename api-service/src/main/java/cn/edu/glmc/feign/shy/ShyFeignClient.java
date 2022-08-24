@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -24,77 +25,56 @@ import java.util.stream.Collectors;
  */
 @FeignClient(value = "shenheyuan-service", configuration = OpenFeignConfig.class)
 public interface ShyFeignClient {
-
-    @RequestMapping("/shyservice/selallqy")
-    List<Shy> selallqy();
-    /**
-     * 查询某个审核员的签到表数据
-     */
-    @RequestMapping("/AdminServlet/selqdb")
-    ResponseData selqdb(@RequestParam String shyid,@RequestParam String num);
-
-    @RequestMapping("/AdminServlet/selbxdbyadmin")
-    ResponseData selbxdbyadmin(@RequestParam String bid, @RequestParam String startime, @RequestParam String endtime, @RequestParam String xq, @RequestParam String qy, @RequestParam String jdr, @RequestParam String state, @RequestParam String pj) throws ParseException;
-
-
-    @RequestMapping("/AdminServlet/selbxdbyadminpc")
-    ResponseData selbxdbyadminpc(@RequestParam String bid, @RequestParam String startime, @RequestParam String endtime, @RequestParam String xq, @RequestParam String qy, @RequestParam String jdr, @RequestParam String state, @RequestParam String pj) throws ParseException;
-
-
-    /**
-     * 根据审核员id，查询该审核员的所有签到表
-     */
-    @RequestMapping("/ShyServlet/selqdb")
-    ResponseData selqdb(@RequestParam String num, @RequestParam String page, @RequestParam String ybid);
-
-    /**
-     * 插入一条审核员的签到数据到签到表
-     */
-    @RequestMapping("/ShyServlet/qd")
-    ResponseData qd(@RequestParam String ybid, @RequestParam String xq, @RequestParam String state);
-
-    /**
-     * 整合返工和新增工单，返工要传jdr的jid和本单的id
-     */
+    @RequestMapping("/JdrServlet")
     @ResponseBody
-    //整合返工和新增工单，返工要传jdr的jid和本单的id
-    @RequestMapping("/BxdServlet/filebase64")
-    ResponseData filebase64(@RequestParam String eid, @RequestParam String xxdd, @RequestParam String yysj, @RequestParam String bxlb, @RequestParam String bxnr, @RequestParam String sbrsj, @RequestParam String sbrxh, @RequestParam String sbr, @RequestParam String tp, @RequestParam String sp, @RequestParam String jid, @RequestParam String bid, @RequestParam String hc) throws IOException ;
+    ResponseData jdrServlet(@RequestParam("op") String op, @RequestParam(value = "jid", required = false) String jid,
+                            @RequestParam(value = "bid", required = false) String bid, @RequestParam(value = "state", required = false) String state,
+                            @RequestParam(value = "hc", required = false) String hc, @RequestParam(value = "gs", required = false) String gs,
+                            @RequestParam(value = "eid", required = false) String eid, @RequestParam(value = "ybid", required = false) String ybid);
+    @RequestMapping("/ShyServlet")
+    @ResponseBody
+    ResponseData shyServlet(@RequestParam("op")String op, @RequestParam(value = "bid", required = false)String bid,
+                            @RequestParam(value = "hc", required = false)String hc, @RequestParam(value = "gs", required = false)String gs,
+                            @RequestParam(value = "ybid", required = false)String ybid, @RequestParam(value = "num", required = false)String num,
+                            @RequestParam(value = "page", required = false)String page, @RequestParam(value = "xq", required = false)String xq,
+                            @RequestParam(value = "state", required = false)String state, @RequestParam(value = "shyid", required = false)String shyid,
+                            @RequestParam(value = "shystate", required = false)String shystate, @RequestParam(value = "eid", required = false)String eid,
+                            @RequestParam(value = "bxdIds", required = false) List<Integer> bxdIds, @RequestParam(value = "superShy", required = false, defaultValue = "false") Boolean superShy);
 
-    /**
-     * 查询接单人的数据
-     */
-    @RequestMapping("/AdminServlet/selalljdr")
-    ResponseData selalljdr(String state);
-
-    /**
-     * 查询适合的接单人
-     */
-    @RequestMapping("/AdminServlet/selOptimaljdrPC")
-    ResponseData selOptimaljdrPC(String bid);
-
-
+    @RequestMapping("/AdminServlet")
+    @ResponseBody
+    ResponseData adminServlet(@RequestParam("op")String op, @RequestParam(value = "shyid",required = false) String shyid,
+                              @RequestParam(value = "num",required = false) String num, @RequestParam(value = "state",required = false)String state,
+                              @RequestParam(value = "qid",required = false) String qid, @RequestParam(value = "xxdd",required = false) String xxdd,
+                              @RequestParam(value = "qy",required = false) String qy, @RequestParam(value = "qylb",required = false) String qylb,
+                              @RequestParam(value = "xq",required = false) String xq, @RequestParam(value = "x",required = false) String x,
+                              @RequestParam(value = "y",required = false) String y, @RequestParam(value = "eid",required = false) String eid,
+                              @RequestParam(value = "jid",required = false) String jid, @RequestParam(value = "xm",required = false) String xm,
+                              @RequestParam(value = "del",required = false) String del, @RequestParam(value = "zw",required = false) String zw,
+                              @RequestParam(value = "sj",required = false) String sj, @RequestParam(value = "yx",required = false) String yx,
+                              @RequestParam(value = "ywfw",required = false) String ywfw, @RequestParam(value = "ybid",required = false) String ybid,
+                              @RequestParam(value = "gh",required = false) String gh, @RequestParam(value = "bid",required = false) String bid,
+                              @RequestParam(value = "shy1",required = false) String shy1, @RequestParam(value = "shy2",required = false) String shy2,
+                              @RequestParam(value = "pj",required = false) String pj, @RequestParam(value = "startime",required = false) String startime,
+                              @RequestParam(value = "endtime",required = false) String endtime, @RequestParam(value = "pjnr",required = false) String pjnr,
+                              @RequestParam(value = "hc",required = false) String hc, @RequestParam(value = "gs",required = false) String gs,
+                              @RequestParam(value = "bxlb",required = false) String bxlb);
+    @RequestMapping("/BxdServlet")
+    @ResponseBody
+    ResponseData bxdServlet(@RequestParam("op") String op, @RequestParam(value = "eid", required = false) String eid,
+                            @RequestParam(value = "xh", required = false) String xh, @RequestParam(value = "xxdd", required = false) String xxdd,
+                            @RequestParam(value = "yysj", required = false) String yysj,
+                            @RequestParam(value = "bxlb", required = false) String bxlb, @RequestParam(value = "bxnr", required = false) String bxnr,
+                            @RequestParam(value = "sbrsj", required = false) String sbrsj, @RequestParam(value = "sbrxh", required = false) String sbrxh,
+                            @RequestParam(value = "sbr", required = false) String sbr, @RequestParam(value = "tp", required = false) String tp,
+                            @RequestParam(value = "sp", required = false) String sp,
+                            @RequestParam(value = "cxsy", required = false) String cxsy, @RequestParam(value = "pj", required = false) String pj,
+                            @RequestParam(value = "pjnr", required = false) String pjnr, @RequestParam(value = "pjzj", required = false) String pjzj,
+                            @RequestParam(value = "bid", required = false) String bid, @RequestParam(value = "jid", required = false) String jid,
+                            @RequestParam(value = "hc", required = false) String hc, HttpServletResponse response);
     /**
      * 如果出问题没有签到，则触发此请求，手动签到
      */
     @RequestMapping("/autoAck")
     public ResponseData autoAck();
-
-    /**
-     * 根据条件：
-     * 删除一个审核员
-     * 修改一个审核员
-     * 删除一个接单人
-     * 修改一个接单人
-     */
-    @RequestMapping("/AdminServlet/uppeople")
-    ResponseData uppeople(@RequestParam String jid, @RequestParam String xm, @RequestParam String shyid, @RequestParam String del, @RequestParam String zw, @RequestParam String sj, @RequestParam String yx, @RequestParam String ywfw, @RequestParam String state);
-
-    /**
-     * 根据条件：
-     * 添加一个审核员
-     * 添加一个接单人
-     */
-    @RequestMapping("/AdminServlet/newpeople")
-    ResponseData newpeople(@RequestParam String y, @RequestParam String ybid, @RequestParam String gh, @RequestParam String xm, @RequestParam String zw, @RequestParam String sj, @RequestParam String yx);
 }
