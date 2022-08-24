@@ -1,4 +1,4 @@
-package cn.edu.glmc.feign.bxd;
+package cn.edu.glmc.feign;
 
 import cn.edu.glmc.bean.Bxd;
 import cn.edu.glmc.response.ResponseData;
@@ -21,6 +21,10 @@ import java.util.Map;
  */
 @FeignClient(name = "baoxiudan-service", configuration = OpenFeignConfig.class)
 public interface BxdFeignClient {
+    @GetMapping("/bxd/getbxdlist")
+    List<Bxd> getbxdlist();
+    @GetMapping("/test")
+    String test();
     @RequestMapping("/AdminServlet")
     @ResponseBody
     ResponseData adminServlet(@RequestParam("op")String op, @RequestParam(value = "shyid",required = false) String shyid,

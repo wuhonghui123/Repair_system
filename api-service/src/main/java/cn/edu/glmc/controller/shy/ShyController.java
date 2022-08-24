@@ -1,10 +1,7 @@
 package cn.edu.glmc.controller.shy;
 
-import cn.edu.glmc.feign.bxd.BxdFeignClient;
-import cn.edu.glmc.feign.bxqy.BxqyFeignClient;
-import cn.edu.glmc.feign.ewm.EwmFeignClient;
-import cn.edu.glmc.feign.hc.HcFeignClient;
-import cn.edu.glmc.feign.shy.ShyFeignClient;
+import cn.edu.glmc.feign.BxdFeignClient;
+import cn.edu.glmc.feign.ShyFeignClient;
 import cn.edu.glmc.response.ResponseData;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,13 +21,7 @@ public class ShyController {
     @Autowired
     private BxdFeignClient bxdFeignClient;
     @Autowired
-    private BxqyFeignClient bxqyFeignClient;
-    @Autowired
-    private HcFeignClient hcFeignClient;
-    @Autowired
     private ShyFeignClient shyFeignClient;
-    @Autowired
-    private EwmFeignClient ewmFeignClient;
     @RequestMapping("/ShyServlet")
     @ResponseBody
     ResponseData shyServlet(@RequestParam("op")String op, @RequestParam(value = "bid", required = false)String bid,
@@ -44,12 +35,15 @@ public class ShyController {
         if(StringUtils.isWhitespace(op) || StringUtils.isEmpty(op) || StringUtils.isBlank(op))
             return new ResponseData("2");
         switch (op){
-            case "selbxdbyshy" : return bxdFeignClient.selbxdbyshy(shyid, eid, shystate);
-            case "upbxdbyshy" : return bxdFeignClient.upbxdbyshy(shyid, bid, shystate,superShy);
-            case "qd" : return shyFeignClient.qd(ybid, xq, state);
-            case "selqdb" : return shyFeignClient.selqdb(num, page, ybid);
-            case "upbxdhcbyshy" : return bxdFeignClient.upbxdhcbyshy(bid,hc,gs,ybid);
-            case "upbxdbyysr" : return bxdFeignClient.upbxdbyysr(shyid,bid,state,superShy);
+            case "selbxdbyshy" :
+            case "upbxdbyshy" :
+            case "upBxdbStateBatch" :
+            case "upbxdhcbyshy" :
+            case "upbxdbyysr" :
+                return bxdFeignClient.shyServlet(op, bid, hc, gs, ybid, num, page, xq, state, shyid, shystate, eid, bxdIds, superShy);
+            case "selqdb" :
+            case "qd" :
+                return shyFeignClient.shyServlet(op, bid, hc, gs, ybid, num, page, xq, state, shyid, shystate, eid, bxdIds, superShy);
             default: return new ResponseData(false);
         }
     }

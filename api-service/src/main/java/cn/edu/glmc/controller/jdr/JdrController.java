@@ -1,10 +1,6 @@
 package cn.edu.glmc.controller.jdr;
 
-import cn.edu.glmc.feign.bxd.BxdFeignClient;
-import cn.edu.glmc.feign.bxqy.BxqyFeignClient;
-import cn.edu.glmc.feign.ewm.EwmFeignClient;
-import cn.edu.glmc.feign.hc.HcFeignClient;
-import cn.edu.glmc.feign.shy.ShyFeignClient;
+import cn.edu.glmc.feign.BxdFeignClient;
 import cn.edu.glmc.response.ResponseData;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,11 +28,9 @@ public class JdrController {
             return new ResponseData("2");
         switch (op) {
             case "selbxdbyjdr":
-                return bxdFeignClient.selbxdbyjdr(jid, eid, state);
             case "upbxdbyjdr":
-                return bxdFeignClient.upbxdbyjdr(jid, bid, state, hc, gs);
             case "selgs":
-                return bxdFeignClient.selgs(ybid);
+                return bxdFeignClient.jdrServlet(op,jid,bid,state,hc,gs,eid,ybid);
             default:
                 return new ResponseData(false);
         }

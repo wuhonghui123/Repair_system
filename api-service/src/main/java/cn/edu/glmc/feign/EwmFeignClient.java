@@ -1,45 +1,27 @@
-package cn.edu.glmc.feign.shy;
+package cn.edu.glmc.feign;
 
-import cn.edu.glmc.bean.Shy;
 import cn.edu.glmc.config.OpenFeignConfig;
 import cn.edu.glmc.response.ResponseData;
-import org.apache.commons.codec.binary.Base64;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * @Author: wuhonghui
- * @Date: 2022/08/22/15:45
+ * @Date: 2022/08/22/15:50
  */
-@FeignClient(value = "shenheyuan-service", configuration = OpenFeignConfig.class)
-public interface ShyFeignClient {
-    @RequestMapping("/JdrServlet")
+@FeignClient(value = "ewm-service", configuration = OpenFeignConfig.class)
+public interface EwmFeignClient {
+    @RequestMapping("/EwmServlet")
     @ResponseBody
-    ResponseData jdrServlet(@RequestParam("op") String op, @RequestParam(value = "jid", required = false) String jid,
-                            @RequestParam(value = "bid", required = false) String bid, @RequestParam(value = "state", required = false) String state,
-                            @RequestParam(value = "hc", required = false) String hc, @RequestParam(value = "gs", required = false) String gs,
-                            @RequestParam(value = "eid", required = false) String eid, @RequestParam(value = "ybid", required = false) String ybid);
-    @RequestMapping("/ShyServlet")
-    @ResponseBody
-    ResponseData shyServlet(@RequestParam("op")String op, @RequestParam(value = "bid", required = false)String bid,
-                            @RequestParam(value = "hc", required = false)String hc, @RequestParam(value = "gs", required = false)String gs,
-                            @RequestParam(value = "ybid", required = false)String ybid, @RequestParam(value = "num", required = false)String num,
-                            @RequestParam(value = "page", required = false)String page, @RequestParam(value = "xq", required = false)String xq,
-                            @RequestParam(value = "state", required = false)String state, @RequestParam(value = "shyid", required = false)String shyid,
-                            @RequestParam(value = "shystate", required = false)String shystate, @RequestParam(value = "eid", required = false)String eid,
-                            @RequestParam(value = "bxdIds", required = false) List<Integer> bxdIds, @RequestParam(value = "superShy", required = false, defaultValue = "false") Boolean superShy);
+    ResponseData ewmServlet(@RequestParam("op")String op, @RequestParam(value = "ewmId", required = false) Integer eid,
+                            @RequestParam(value = "qid", required = false) Integer qid, @RequestParam(value = "startId", required = false) Integer startId,
+                            @RequestParam(value = "endId", required = false) Integer endId, @RequestParam(value = "token", required = false) String token);
+
 
     @RequestMapping("/AdminServlet")
     @ResponseBody
@@ -58,7 +40,7 @@ public interface ShyFeignClient {
                               @RequestParam(value = "pj",required = false) String pj, @RequestParam(value = "startime",required = false) String startime,
                               @RequestParam(value = "endtime",required = false) String endtime, @RequestParam(value = "pjnr",required = false) String pjnr,
                               @RequestParam(value = "hc",required = false) String hc, @RequestParam(value = "gs",required = false) String gs,
-                              @RequestParam(value = "bxlb",required = false) String bxlb);
+                              @RequestParam(value = "bxlb",required = false) String bxlb, @RequestParam(value = "message", required = false) String message);
     @RequestMapping("/BxdServlet")
     @ResponseBody
     ResponseData bxdServlet(@RequestParam("op") String op, @RequestParam(value = "eid", required = false) String eid,
@@ -72,9 +54,5 @@ public interface ShyFeignClient {
                             @RequestParam(value = "pjnr", required = false) String pjnr, @RequestParam(value = "pjzj", required = false) String pjzj,
                             @RequestParam(value = "bid", required = false) String bid, @RequestParam(value = "jid", required = false) String jid,
                             @RequestParam(value = "hc", required = false) String hc, HttpServletResponse response);
-    /**
-     * 如果出问题没有签到，则触发此请求，手动签到
-     */
-    @RequestMapping("/autoAck")
-    public ResponseData autoAck();
-}
+
+    }

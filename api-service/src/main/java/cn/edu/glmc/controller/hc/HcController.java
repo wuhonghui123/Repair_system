@@ -1,6 +1,6 @@
 package cn.edu.glmc.controller.hc;
 
-import cn.edu.glmc.feign.hc.HcFeignClient;
+import cn.edu.glmc.feign.HcFeignClient;
 import cn.edu.glmc.response.ResponseData;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,15 +28,11 @@ public class HcController {
             return new ResponseData("2");
         switch (op) {
             case "selhc":
-                return hcFeignClient.selhc();
             case "delhc":
-                return hcFeignClient.delhc(id);
             case "newhc":
-                return hcFeignClient.newhc(mc, dw, jg, lb, xh);
             case "uphc":
-                return hcFeignClient.uphc(id, mc, dw, jg, lb, xh);
             case "selHcByLb":
-                return hcFeignClient.selHcByLb(yjlb, ejlb);
+                return hcFeignClient.hcServlet(op,mc,dw,jg,id,lb,xh,yjlb,ejlb);
             default:
                 return new ResponseData(false);
         }

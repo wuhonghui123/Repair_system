@@ -1,4 +1,4 @@
-package cn.edu.glmc.feign.admin;
+package cn.edu.glmc.feign;
 
 /**
  * @Author: wuhonghui

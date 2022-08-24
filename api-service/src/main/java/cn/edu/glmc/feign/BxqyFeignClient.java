@@ -1,4 +1,4 @@
-package cn.edu.glmc.feign.bxqy;
+package cn.edu.glmc.feign;
 
 import cn.edu.glmc.config.OpenFeignConfig;
 import cn.edu.glmc.response.ResponseData;
