@@ -46,8 +46,9 @@ public class ShyController {
                               @RequestParam(value = "bxlb",required = false) String bxlb) throws ParseException {
         Map<String,Object> shymap = new HashMap<>();
         shymap.put("slist", shyService.selallqy());
-        if(StringUtils.isWhitespace(op) || StringUtils.isEmpty(op) || StringUtils.isBlank(op))
+        if(StringUtils.isWhitespace(op) || StringUtils.isEmpty(op) || StringUtils.isBlank(op)) {
             return new ResponseData("2");
+        }
         switch (op){
             case "selbxdbyadmin" :
             case "selallshy" : return new ResponseData(shymap);
@@ -90,8 +91,9 @@ public class ShyController {
                             @RequestParam(value = "pjnr", required = false) String pjnr, @RequestParam(value = "pjzj", required = false) String pjzj,
                             @RequestParam(value = "bid", required = false) String bid, @RequestParam(value = "jid", required = false) String jid,
                             @RequestParam(value = "hc", required = false) String hc, HttpServletResponse response) throws IOException {
-        if (StringUtils.isWhitespace(op) || StringUtils.isEmpty(op) || StringUtils.isBlank(op))
+        if (StringUtils.isWhitespace(op) || StringUtils.isEmpty(op) || StringUtils.isBlank(op)) {
             return new ResponseData("2");
+        }
         switch (op) {
             case "newbxdbysbr":
 

@@ -33,8 +33,9 @@ public class BxqyController {
                               @RequestParam(value = "endtime",required = false) String endtime, @RequestParam(value = "pjnr",required = false) String pjnr,
                               @RequestParam(value = "hc",required = false) String hc, @RequestParam(value = "gs",required = false) String gs,
                               @RequestParam(value = "bxlb",required = false) String bxlb, @RequestParam(value = "message", required = false) String message) throws ParseException {
-        if(org.apache.commons.lang3.StringUtils.isWhitespace(op) || org.apache.commons.lang3.StringUtils.isEmpty(op) || org.apache.commons.lang3.StringUtils.isBlank(op))
+        if(org.apache.commons.lang3.StringUtils.isWhitespace(op) || org.apache.commons.lang3.StringUtils.isEmpty(op) || org.apache.commons.lang3.StringUtils.isBlank(op)) {
             return new ResponseData("2");
+        }
         switch (op){
             case "selallqy" :
             case "newqy" :
@@ -46,8 +47,9 @@ public class BxqyController {
     @RequestMapping("/BxqyServlet")
     @ResponseBody
     ResponseData bxqyServlet(@RequestParam("op")String op, @RequestParam(value = "qid", required = false) String qid) {
-        if(StringUtils.isWhitespace(op) || StringUtils.isEmpty(op) || StringUtils.isBlank(op))
+        if(StringUtils.isWhitespace(op) || StringUtils.isEmpty(op) || StringUtils.isBlank(op)) {
             return new ResponseData("2");
+        }
         switch (op){
             case "selqybyid" :
             default: return new ResponseData(false);

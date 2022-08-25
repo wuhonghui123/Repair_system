@@ -22,8 +22,9 @@ public class EwmController {
     ResponseData ewmServlet(@RequestParam("op")String op, @RequestParam(value = "ewmId", required = false) Integer eid,
                             @RequestParam(value = "qid", required = false) Integer qid, @RequestParam(value = "startId", required = false) Integer startId,
                             @RequestParam(value = "endId", required = false) Integer endId, @RequestParam(value = "token", required = false) String token) {
-        if(StringUtils.isWhitespace(op) || StringUtils.isEmpty(op) || StringUtils.isBlank(op))
+        if(StringUtils.isWhitespace(op) || StringUtils.isEmpty(op) || StringUtils.isBlank(op)) {
             return new ResponseData("2");
+        }
         switch (op){
             case "selEwmById" :
             case "updateQidByAdmin":
@@ -48,8 +49,9 @@ public class EwmController {
                               @RequestParam(value = "endtime",required = false) String endtime, @RequestParam(value = "pjnr",required = false) String pjnr,
                               @RequestParam(value = "hc",required = false) String hc, @RequestParam(value = "gs",required = false) String gs,
                               @RequestParam(value = "bxlb",required = false) String bxlb, @RequestParam(value = "message", required = false) String message) throws ParseException {
-        if(org.apache.commons.lang3.StringUtils.isWhitespace(op) || org.apache.commons.lang3.StringUtils.isEmpty(op) || org.apache.commons.lang3.StringUtils.isBlank(op))
+        if(org.apache.commons.lang3.StringUtils.isWhitespace(op) || org.apache.commons.lang3.StringUtils.isEmpty(op) || org.apache.commons.lang3.StringUtils.isBlank(op)) {
             return new ResponseData("2");
+        }
         switch (op){
             case "selewm" :
             case "newewm" :
@@ -70,8 +72,9 @@ public class EwmController {
                             @RequestParam(value = "pjnr", required = false) String pjnr, @RequestParam(value = "pjzj", required = false) String pjzj,
                             @RequestParam(value = "bid", required = false) String bid, @RequestParam(value = "jid", required = false) String jid,
                             @RequestParam(value = "hc", required = false) String hc, HttpServletResponse response) throws IOException {
-        if (org.apache.commons.lang3.StringUtils.isWhitespace(op) || org.apache.commons.lang3.StringUtils.isEmpty(op) || org.apache.commons.lang3.StringUtils.isBlank(op))
+        if (org.apache.commons.lang3.StringUtils.isWhitespace(op) || org.apache.commons.lang3.StringUtils.isEmpty(op) || org.apache.commons.lang3.StringUtils.isBlank(op)) {
             return new ResponseData("2");
+        }
         switch (op) {
             case "selqybysbr":
             default:

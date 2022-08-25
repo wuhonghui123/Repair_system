@@ -24,8 +24,9 @@ public class HcController {
                            @RequestParam(value = "id", required = false) String id, @RequestParam(value = "lb", required = false) String lb,
                            @RequestParam(value = "xh", required = false) String xh, @RequestParam(value = "yjlb", required = false) String yjlb,
                            @RequestParam(value = "ejlb", required = false) String ejlb) {
-        if (StringUtils.isWhitespace(op) || StringUtils.isEmpty(op) || StringUtils.isBlank(op))
+        if (StringUtils.isWhitespace(op) || StringUtils.isEmpty(op) || StringUtils.isBlank(op)) {
             return new ResponseData("2");
+        }
         switch (op) {
             case "selhc":
 
