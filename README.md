@@ -1,6 +1,9 @@
 # 桂林医学院报修系统后台
 
-> 开发帮助文档：[https://notes.youngkbt.cn/rrs/details/](https://notes.youngkbt.cn/rrs/details/)
+> - 开发帮助文档：[https://notes.youngkbt.cn/rrs/details/](https://notes.youngkbt.cn/rrs/details/)
+> - 后端源代码：[https://github.com/programmingwang/glyxybxxththd.git](https://github.com/programmingwang/glyxybxxththd.git)
+> - 后台前端源代码：[https://github.com/programmingwang/glyxybxxtqdPC.git](https://github.com/programmingwang/glyxybxxtqdPC.git)
+> - 手机端源代码：[https://github.com/programmingwang/glyxybxxtmobile.git](https://github.com/programmingwang/glyxybxxtmobile.git)
 ---
 - ### 分工说明：
 - > admin-service（吴鸿辉）: 登录、定时等杂项接口
